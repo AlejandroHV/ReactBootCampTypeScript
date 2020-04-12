@@ -17,6 +17,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import WellnessPlansList from './Components/wellnessPlansList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -90,8 +91,7 @@ const  App =() : JSX.Element => {
              
               <nav>
                 <Button variant="contained" color="secondary">  <Link  to="/" className={classes.link}>Profile</Link></Button>
-                <Button variant="contained" color="secondary">  <Link to="/history" className={classes.link}>History</Link></Button>
-                <Button variant="contained" color="secondary">  <Link to="/sickness" className={classes.link}>Sickness</Link></Button>
+                <Button variant="contained" color="secondary">  <Link to="/WellnessPlans" className={classes.link}>Wellness Plans</Link></Button>
                 
               </nav>
             </Toolbar> 
@@ -101,11 +101,10 @@ const  App =() : JSX.Element => {
             <Route  exact path="/">
               <PatientInfo />
                 </Route>
-              <Route path="/history">
-                
+              <Route path="/WellnessPlans">
+                <WellnessPlansList/>
               </Route>
-              <Route path="/sickness">
-              </Route>
+              
           </Switch>
         </Container>
       </Router>

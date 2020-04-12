@@ -67,24 +67,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
            
         e.preventDefault();
         
-        /*
-        const updatedPatient : IPatient = {
-            id: this.props.patient.id,
-            firstName : this.props.patient.firstName,
-            lastName : this.props.patient.lastName,
-            appointsments : this.props.patient.appointsments,
-            sicknesses : this.props.patient.sicknesses,
-            wellnessPlan : this.props.patient?.wellnessPlan,
-            birthDate :  this.state.birthDate ,
-            email : this.state.email,
-            userPassword : "",
-            insuranceName : this.state.insuranceName,
-            location : this.state.location,
-            phoneNumber : this.state.phoneNumber
-        }
-        
-        this.props.updatePatient(updatedPatient);
-        */
+       
        this.state.updateContext(true, this.state.loggedUser);
         this.changeEditMode();
     }

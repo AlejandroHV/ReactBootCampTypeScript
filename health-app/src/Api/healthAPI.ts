@@ -21,7 +21,11 @@ export const putUser = (user : IPatient) =>  {
  return instance.put<{ user: any }>('users/' +user.id, 
   user
   
-)
+)}
 
 
+export const getWellnessPlans = () => {
+  const instance = axios.create({baseURL:"https://localhost:44336/",method: 'GET' , headers : { 'Access-Control-Allow-Origin' : '*' , 'Accept': 'application/json'}});
+
+  return instance.get( "WellnessPlans")
 }

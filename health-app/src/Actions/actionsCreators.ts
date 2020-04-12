@@ -15,9 +15,9 @@ export type addUserAction = {
 }
 
 
- export type addWellnessPlanAction = {
-    type: ActionTypes.ADD_WELLNESS_PLAN;
-    payload: IPatient;
+ export type fetchWellnessPlanAction = {
+    type: ActionTypes.FETCH_WELLNESS_PLAN;
+    payload: IWellnessPlan[];
 }
 
 
@@ -29,6 +29,6 @@ export function updateUser(payload : IPatient) : updateUserAction{
     return  { type : ActionTypes.UPDATE_USER  , payload }
 }
 
-export function addWellnessPlan(payload : IPatient) : addWellnessPlanAction{
-    return  { type : ActionTypes.ADD_WELLNESS_PLAN  , payload }
+export function fetchWellnessPlans(payload : IWellnessPlan[]) : fetchWellnessPlanAction{
+    return  { type : ActionTypes.FETCH_WELLNESS_PLAN  , payload }
 }
