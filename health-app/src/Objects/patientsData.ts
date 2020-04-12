@@ -15,7 +15,8 @@ export const patientsData : IPatient[] = [
         email : "aaa@gmail",
         appointsments : appointsmentsData.filter(a => a.patientId ===1),
         wellnessPlan : [],
-        sickness :sicknessDate.filter(s => s.patientId === 1)
+        userPassword : "",
+        sicknesses :sicknessDate.filter(s => s.id === 1)
     },
     {
         id : 2, 
@@ -26,9 +27,10 @@ export const patientsData : IPatient[] = [
         phoneNumber : "2123",
         location: "Colombia",
         email : "aaa@gmail",
+        userPassword : "",
         appointsments : appointsmentsData.filter(a => a.patientId ===2),
         wellnessPlan : [],
-        sickness :sicknessDate.filter(s => s.patientId === 2)
+        sicknesses :sicknessDate.filter(s => s.id === 2)
     },
     {
         id : 3, 
@@ -39,8 +41,9 @@ export const patientsData : IPatient[] = [
         location: "England",
         email : "aaa@gmail",
         insuranceName : "Sura",
+        userPassword : "",
         appointsments : [],
         wellnessPlan : [],
-        sickness :[]
+        sicknesses :[]
     }
 ]

@@ -8,7 +8,6 @@ import store from './Stores/store';
 import { addUser } from './Actions/actionsCreators';
 import { patientsData } from './Objects/patientsData';
 import PatientInfo  from './Components/patientInfo';
-import PatientHistory from './Components/patientHistory';
 import {PatientSickness} from './Components/patientSickness';
 import { Container, AppBar, Toolbar, Typography, MenuItem, Menu, Button, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -103,10 +102,9 @@ const  App =() : JSX.Element => {
               <PatientInfo />
                 </Route>
               <Route path="/history">
-                <PatientHistory/>
+                
               </Route>
               <Route path="/sickness">
-                <PatientSickness/>
               </Route>
           </Switch>
         </Container>

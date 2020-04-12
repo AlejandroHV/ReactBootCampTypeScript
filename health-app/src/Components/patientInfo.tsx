@@ -5,7 +5,9 @@ import { IPatient } from '../Interfaces/IPatient';
 import { IHealtState } from '../Interfaces/IHealtState';
 import { updateUserAction, updateUser } from '../Actions/actionsCreators';
 import {Box, Typography, TextField, Button } from '@material-ui/core';
-
+import { PatientHistory } from './patientHistory';
+import { PatientSickness } from './patientSickness';
+import { MyContext } from '../AuthContext/AuthContext';
 
 
 type IPatientInfoProps = {
@@ -20,6 +22,9 @@ type IPatientInfoState  ={
     phoneNumber : string, 
     email : string ,
     location : string,
+    isUserLoggedIn : boolean,
+    loggedUser : IPatient | null,
+    updateContext :( isLoggedIn : boolean , user : IPatient | null) => void 
 }
 
 class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
@@ -34,10 +39,23 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
             phoneNumber : this.props.patient?.phoneNumber, 
             email : this.props.patient?.email,
             location : this.props.patient?.location,
+            isUserLoggedIn :  false,
+            loggedUser : null, 
+            updateContext : ( isLoggedIn  , user ) => {}
         }
 
     }
 
+    componentWillMount =()=>{
+        const {isLoggedIn , user, updateContext} = this.context;
+        this.setState({isUserLoggedIn : isLoggedIn,loggedUser : user, updateContext : updateContext });
+    }
+
+    componentDidMount =() => {
+       
+        
+
+    }
 
     changeEditMode = () => {
 
@@ -48,22 +66,26 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
     handleSubmit = ( e: React.FormEvent<HTMLFormElement>)=> {
            
         e.preventDefault();
-
+        
+        /*
         const updatedPatient : IPatient = {
             id: this.props.patient.id,
             firstName : this.props.patient.firstName,
             lastName : this.props.patient.lastName,
             appointsments : this.props.patient.appointsments,
-            sickness : this.props.patient.sickness,
+            sicknesses : this.props.patient.sicknesses,
             wellnessPlan : this.props.patient?.wellnessPlan,
             birthDate :  this.state.birthDate ,
             email : this.state.email,
+            userPassword : "",
             insuranceName : this.state.insuranceName,
             location : this.state.location,
             phoneNumber : this.state.phoneNumber
         }
         
         this.props.updatePatient(updatedPatient);
+        */
+       this.state.updateContext(true, this.state.loggedUser);
         this.changeEditMode();
     }
 
@@ -71,44 +93,65 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
     handleBirthChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>{
         const target = e.target;
         const value : Date  =  new Date(target.value);
-        this.setState( {birthDate: value} );
+        const currentUser  = this.state.loggedUser;
+        if(currentUser){
+            currentUser.birthDate  = value;
+        }
+        this.setState( {loggedUser:  currentUser} );
     }
 
     handleInsurranceChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>{
         const target = e.target;
         const value : string  =  target.value;
-        
-        this.setState( {insuranceName: value} );
+        const currentUser  = this.state.loggedUser;
+        if(currentUser){
+            currentUser.insuranceName  = value;
+        }
+        this.setState( {loggedUser:  currentUser} );
+       // this.setState( {insuranceName: value} );
     }
 
     handlePhoneChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>{
         const target = e.target;
         const value : string  =  target.value;
-        
-        this.setState( {phoneNumber: value} );
+        const currentUser  = this.state.loggedUser;
+        if(currentUser){
+            currentUser.phoneNumber  = value;
+        }
+        this.setState( {loggedUser:  currentUser} );
+        //this.setState( {phoneNumber: value} );
     }
 
     handleLocationChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>{
         const target = e.target;
         const value : string  =  target.value;
-        
-        this.setState( {location: value} );
+        const currentUser  = this.state.loggedUser;
+        if(currentUser){
+            currentUser.location  = value;
+        }
+        this.setState( {loggedUser:  currentUser} );
+        //this.setState( {location: value} );
     }
 
     handleEmailChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>{
         const target = e.target;
         const value : string  =  target.value;
-        
-        this.setState( {email: value} );
+        const currentUser  = this.state.loggedUser;
+        if(currentUser){
+            currentUser.email  = value;
+        }
+        this.setState( {loggedUser:  currentUser} );
+        //this.setState( {email: value} );
     }
 
     render() {
-
+        let contextData = this.context;
         return(
             <div> 
                 <Box > 
                     <Typography variant="h2" color="inherit" noWrap>
-                        Hello {this.props.patient?.firstName  + ' ' + this.props.patient?.lastName + ','}
+                        
+                        Hello {this.state.loggedUser?.firstName  + ' ' + this.state.loggedUser?.lastName + ','}
                     </Typography> 
                     <Typography variant="h6" color="inherit" noWrap>
                         <h3> This is your personal information: </h3>  
@@ -122,7 +165,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                             name="birthDate"
                             variant="outlined"
                             disabled =  {!this.state.isEditMode}
-                            defaultValue={this.props.patient?.birthDate}
+                            defaultValue={this.state.loggedUser?.birthDate}
                             onChange={this.handleBirthChange}
                             InputLabelProps={{
                             shrink: true,
@@ -132,7 +175,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                             name= "insuranceName"
                             label="Insurance Name"
                             onChange={this.handleInsurranceChange}
-                            defaultValue={this.props.patient?.insuranceName}
+                            defaultValue={this.state.loggedUser?.insuranceName}
                             variant="outlined"
                         />
                          <TextField
@@ -141,7 +184,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                             name="phoneNumber"
                             label="Phone Number"
                             onChange={this.handlePhoneChange}
-                            defaultValue={this.props.patient?.phoneNumber}
+                            defaultValue={this.state.loggedUser?.phoneNumber}
                             variant="outlined"
                         />
                          <TextField
@@ -149,7 +192,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                             name= "location"
                             label="Location"
                             onChange={this.handleLocationChange}
-                            defaultValue={this.props.patient?.location}
+                            defaultValue={this.state.loggedUser?.location}
                             variant="outlined"
                         />
                          <TextField
@@ -157,7 +200,7 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                             name="email"
                             label="Email"
                             onChange={this.handleEmailChange}
-                            defaultValue={this.props.patient?.email}
+                            defaultValue={this.state.loggedUser?.email}
                             variant="outlined"
                         />
                     
@@ -166,14 +209,19 @@ class PatientInfo extends React.Component<IPatientInfoProps,IPatientInfoState> {
                     {!this.state.isEditMode &&  <Button variant="contained" color="secondary" onClick={this.changeEditMode}> Edit Information</Button>}
                     
                 </Box>
-                
-               
+                {/* TO DO : MAKE THIS A TAB */}
+                <br/>
+                <PatientHistory  appointments={ this.state.loggedUser?.appointsments}  patientName ={this.props.patient.firstName}/>
+                <br/>
+                <PatientSickness sicknessList = {this.state.loggedUser?.sicknesses}/>         
             </div>  
         )
     };
 
 
 }
+
+PatientInfo.contextType = MyContext;
 
 const mapStateToProps = (state: IHealtState) => {
     return { patient: state.user };

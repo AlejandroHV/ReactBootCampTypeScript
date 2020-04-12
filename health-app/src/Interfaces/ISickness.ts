@@ -5,6 +5,5 @@ export interface ISickness {
     symptoms : string[], 
     description : string, 
     startedDate : Date,
-    patientId : number
 
 }

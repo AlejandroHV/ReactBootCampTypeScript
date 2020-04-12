@@ -11,7 +11,8 @@ export interface IPatient {
     location : string,
     phoneNumber: string,
     email : string,
-    sickness : ISickness []
+    userPassword : string,
+    sicknesses : ISickness []
     appointsments : IAppointment[], 
     wellnessPlan : IWellnessPlan[]
 }
